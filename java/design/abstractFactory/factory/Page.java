@@ -16,7 +16,8 @@ public abstract class Page {
 	public void add(Item item) {
 		content.add(item);
 	}
-	//Templeate Method 
+	
+	//Templeate Method. 
 	public void output() {
 		String filename = title + ".html";
 		Writer writer;
