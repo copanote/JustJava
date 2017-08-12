@@ -28,6 +28,10 @@ public class Hand {
 		return fight(h) == 1;
 	}
 	
+	public boolean isWeekerThan(Hand h) {
+		return fight(h) == -1;
+	}
+	
 	private int fight(Hand h) {
 		if(this == h) {
 			return 0;
