@@ -1,26 +1,25 @@
 package Future;
 
-public class FutureData implements Data {
-	private RealData realdata = null;
-	private boolean ready = false;
-	public synchronized void setRealData(RealData realdata) {
-		if(ready) {
-			return; //balk
-		}
-		this.realdata = realdata;
-		this.ready = true;
-		notifyAll();
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
+
+public class FutureData extends FutureTask<RealData> implements Data {
+	public FutureData(Callable<RealData> callable) {
+		super(callable);
 	}
 
 	@Override
-	public synchronized String getContent() {
-		while(!ready) {
-			try {
-				wait();
-			}catch(InterruptedException e) {}
+	public String getContent() {
+		String string = null;
+		try {
+			string = get().getContent();
+		}catch(InterruptedException e) {
+			e.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 		
-		return realdata.getContent();
+		return string;
 	}
-
+	
 }
